@@ -2,11 +2,10 @@
 
 namespace Dcolsay\Drive;
 
-use Dcolsay\DataSource\File\Models\File;
 
 class Drive
 {
-    public static $fileModel = File::class;
+    public static $fileModel = 'Dcolsay\\Drive\\Models\\File';
 
     /**
      * Get the name of the file model used by the application.

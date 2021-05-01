@@ -2,13 +2,15 @@
 
 namespace Dcolsay\Drive;
 
-use Dcolsay\Drive\Concerns\GetFiles;
 use Exception;
 use InvalidArgumentException;
+use Dcolsay\Drive\Models\File;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Filesystem\FilesystemManager;
-use League\Flysystem\ConnectionRuntimeException;
+use Dcolsay\Drive\Concerns\GetFiles;
 use Dcolsay\Drive\Exceptions\InvalidConfig;
+use Illuminate\Filesystem\FilesystemManager;
+use Dcolsay\Drive\Contracts\StorageAttributes;
+use League\Flysystem\ConnectionRuntimeException;
 
 class DriveManager
 {
@@ -40,6 +42,27 @@ class DriveManager
 
         return $this->getFiles($this->currentPath);     
       
+    }
+
+    public function sync(string $directory = null)
+    {
+        $directory = $directory ?? $this->currentPath;
+
+        // TODO : Add Event Start Sync
+        
+        // TODO : dispacth inside queue
+        $files = $this->lists()
+            ->map(fn($attributes) => [
+                'name' => $attributes['filename'],
+                'dir_name' => $attributes['dirname'],
+                'size' => $attributes['size'],
+                'disk' => $this->currentDisk,
+            ])
+            ->toArray();
+
+        Drive::newFileModel()::insert($files);
+
+        // TODO : Add Event End Sync
     }
 
     /**
