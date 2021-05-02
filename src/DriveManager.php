@@ -65,6 +65,13 @@ class DriveManager
         // TODO : Add Event End Sync
     }
 
+    public function transfer(File $file)
+    {
+        $file->addMediaFromDisk($file->path, $this->currentDisk)
+            ->preservingOriginal()
+            ->toMediaCollection('batch');
+    }
+
     /**
      * Get the Flysystem driver.
      *

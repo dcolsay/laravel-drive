@@ -2,10 +2,14 @@
 
 namespace Dcolsay\Drive\Models;
 
+use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class File extends Model
+class File extends Model implements HasMedia
 {
+    use InteractsWithMedia;
+    
     protected $fillable = [
         'name',
         'dir_name',
@@ -16,5 +20,10 @@ class File extends Model
         return [
             
         ];
+    }
+
+    public function getPathAttribute()
+    {
+        return "{$this->dir_name}/{$this->name}.zip";
     }
 }

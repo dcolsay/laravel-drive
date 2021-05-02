@@ -2,8 +2,9 @@
 
 namespace Dcolsay\Drive;
 
-use Dcolsay\Drive\Filament\FilamentServiceProvider;
+use Dcolsay\Drive\DriveManager;
 use Spatie\LaravelPackageTools\Package;
+use Dcolsay\Drive\Filament\FilamentServiceProvider;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class DriveServiceProvider extends PackageServiceProvider
@@ -21,6 +22,11 @@ class DriveServiceProvider extends PackageServiceProvider
 
     public function packageRegistered()
     {
+        
         $this->app->register(FilamentServiceProvider::class);
+
+        $this->app->bind(DriveManager::class, function($app){
+            return new DriveManager($app['filesystem']);
+        });
     }
 }
