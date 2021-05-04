@@ -3,12 +3,13 @@
 namespace Dcolsay\Drive;
 
 use Closure;
+use Illuminate\Support\Facades\Log;
 
 class AddToLaravelMedialibrary
 {
-    public function handle($passable, Closure $next)
+    public function handle($traveler, Closure $next)
     {
-        dd('Inside add to Media', $passable);
-        return $next($passable);
+        Log::info("{$traveler->file->getPath()} is inside pipeline");
+        return $next($traveler);
     }
 }

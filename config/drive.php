@@ -1,11 +1,16 @@
 <?php
 
-use Dcolsay\Drive\Models\File;
-
 return [
 
     'models' => [
 
-        'file' => File::class,
+        'file' => Dcolsay\Drive\Models\File::class,
+    ],
+
+    'pipeline' => [
+
+        'batch' => [
+            Dcolsay\Drive\AddToLaravelMedialibrary::class
+        ]
     ]
 ];
