@@ -14,9 +14,18 @@
         "filament/filament": "^1.9",
         "spatie/laravel-medialibrary": "^9.0.0"
     },
+    "require-dev": {
+        "orchestra/testbench": "^5.0|^6.0",
+        "phpunit/phpunit": "^9.3"
+    },
     "autoload": {
         "psr-4": {
             "Dcolsay\\Drive\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dcolsay\\Drive\\Tests\\": "tests"
         }
     },
     "extra": {
