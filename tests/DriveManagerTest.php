@@ -3,7 +3,6 @@
 namespace Dcolsay\Drive\Tests;
 
 use Dcolsay\Drive\DriveManager;
-use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\LazyCollection;
 
