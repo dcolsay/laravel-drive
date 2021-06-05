@@ -24,9 +24,10 @@ class DriveManager
 
     protected string $currentPath;
 
-    public function __construct(FilesystemManager $filesystem)
+    public function __construct(FilesystemManager $filesystem, $currentPath = "")
     {
         $this->filesystem = $filesystem;
+        $this->currentPath = $currentPath;
     }
 
     public function lists()
@@ -42,6 +43,19 @@ class DriveManager
 
         return $this->getFiles($this->currentPath);     
       
+    }
+
+    public function listsArray()
+    {
+        return $this->lists()
+            ->map(fn($attributes) => [
+                'name' => $attributes['filename'],
+                'dir_name' => $attributes['dirname'],
+                'size' => $attributes['size'],
+                'disk' => $this->currentDisk,
+            ])
+            ->toArray();
+
     }
 
     public function sync(string $directory = null)
