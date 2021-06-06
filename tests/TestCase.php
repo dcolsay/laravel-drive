@@ -2,6 +2,7 @@
 
 namespace Dcolsay\Drive\Tests;
 
+use CreateFilesTable;
 use Dcolsay\Drive\DriveServiceProvider;
 use Illuminate\Support\Facades\Storage;
 use Livewire\LivewireServiceProvider;
@@ -14,6 +15,8 @@ abstract class TestCase extends Orchestra
     public function setUp(): void
     {
         parent::setUp();
+
+        $this->setUpDatabase($this->app);
     }
 
     protected function getPackageProviders($app)
@@ -28,5 +31,19 @@ abstract class TestCase extends Orchestra
     {
         // $this->configureDisk('ftp', 'ftp');
         Storage::fake('ftp',  ['root' => $this->getStorageDirectory('ftp')]);
+
+        config()->set('database.default', 'sqlite');
+        config()->set('database.connections.sqlite', [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ]);
+    }
+
+    protected function setUpDatabase($app)
+    {
+        include_once(__DIR__  . '/../database/migrations/create_files_table.php.stub');
+
+        (new CreateFilesTable())->up();
     }
 }

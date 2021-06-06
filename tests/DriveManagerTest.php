@@ -2,9 +2,10 @@
 
 namespace Dcolsay\Drive\Tests;
 
+use Dcolsay\Drive\Drive;
 use Dcolsay\Drive\DriveManager;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\LazyCollection;
+use Illuminate\Support\Facades\Storage;
 
 class DriveManagerTest extends TestCase
 {
@@ -73,6 +74,22 @@ class DriveManagerTest extends TestCase
         $this->assertIsArray($lists);
         $this->assertSame($expected, $drive->listsArray());
 
+    }
+
+    /** @test */
+    public function can_sync()
+    {
+        $storage = Storage::fake('local');
+        $storage->put('test1.txt', 'Hello Test');
+        $storage->put('test2.txt', 'Hello World');
+
+        $drive = $this->getDriveManager();
+        $drive->setDisk('local');
+        $drive->sync();
+
+        $dbDrive = Drive::newFileModel()::all();
+        
+        $this->assertEquals(2, $dbDrive->count());
     }
 
     protected function getDriveManager(): DriveManager
