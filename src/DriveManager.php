@@ -81,7 +81,7 @@ class DriveManager
 
     public function transfer(File $file)
     {
-        $file->addMediaFromDisk($file->path, $this->currentDisk)
+        $file->addMediaFromDisk($file->path, $file->disk)
             ->preservingOriginal()
             ->toMediaCollection('batch');
     }
