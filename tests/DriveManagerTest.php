@@ -59,12 +59,14 @@ class DriveManagerTest extends TestCase
         $expected = [
             [
                 "name" => "test1",
+                "extension" => "txt",
                 "dir_name" => "",
                 "size" => 10,
                 "disk" => "local",
             ],
             [
                 "name" => "test2",
+                "extension" => "txt",
                 "dir_name" => "",
                 "size" => 11,
                 "disk" => "local",

@@ -20,6 +20,7 @@ class CreateFilesTable extends Migration
             $table->string('name');
             $table->unsignedInteger('order_column')->nullable();
             $table->string('mime_type')->nullable();
+            $table->string('extension')->nullable();
             $table->string('disk');
             $table->unsignedBigInteger('size');
             $table->json('custom_properties')->nullable();

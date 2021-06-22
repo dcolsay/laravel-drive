@@ -24,6 +24,6 @@ class File extends Model implements HasMedia
 
     public function getPathAttribute()
     {
-        return "{$this->dir_name}/{$this->name}.zip";
+        return "{$this->dir_name}/{$this->name}.{$this->extension}";
     }
 }
