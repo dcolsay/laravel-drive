@@ -50,6 +50,7 @@ class DriveManager
         return $this->lists()
             ->map(fn($attributes) => [
                 'name' => $attributes['filename'],
+                'extension' => $attributes['extension'],
                 'dir_name' => $attributes['dirname'],
                 'size' => $attributes['size'],
                 'disk' => $this->currentDisk,
@@ -68,6 +69,7 @@ class DriveManager
         $files = $this->lists()
             ->map(fn($attributes) => [
                 'name' => $attributes['filename'],
+                'extension' => $attributes['extension'],
                 'dir_name' => $attributes['dirname'],
                 'size' => $attributes['size'],
                 'disk' => $this->currentDisk,
